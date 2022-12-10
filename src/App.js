@@ -22,14 +22,14 @@ function App(props) {
         />
         <Route path="/product" element={<Product />} />
         {/* Cách 1: tạo 2 đường dẫn */}
-        <Route
+        {/* <Route
           path="/post"
           element={<Post banner="assets/img/post-bg.jpg" />}
         />
         <Route
           path="/post/:idBlog"
           element={<Post banner="assets/img/post-bg.jpg" />}
-        />
+        /> */}
         {/* Cách 2: tạo group route */}
         <Route path="/post" element={<Post banner="assets/img/post-bg.jpg" />}>
           <Route
