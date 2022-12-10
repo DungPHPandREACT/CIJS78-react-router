@@ -1,7 +1,28 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import Header from '../layout/Header';
 
 const Post = (props) => {
+  const params = useParams();
+
+  useEffect(() => {
+    const handleFetchBlog = () => {
+      fetch(
+        'https://639493274df9248eada6578d.mockapi.io/api/v1/list-blogs/' +
+          params.idBlog
+      )
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          console.log(data);
+          // in ra trên màn hình
+        });
+    };
+
+    handleFetchBlog();
+  }, []);
+
   return (
     <>
       <Header banner={props.banner}></Header>
