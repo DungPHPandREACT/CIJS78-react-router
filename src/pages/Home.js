@@ -4,10 +4,13 @@ import Header from '../layout/Header';
 
 const Home = (props) => {
   const [listData, setListData] = useState([]);
+  const [pagination, setPagination] = useState(1);
 
   useEffect(() => {
     const handleFetchListBlogs = () => {
-      fetch('https://639493274df9248eada6578d.mockapi.io/api/v1/list-blogs')
+      fetch(
+        `https://639493274df9248eada6578d.mockapi.io/api/v1/list-blogs?page=${pagination}&limit=10`
+      )
         .then((response) => {
           return response.json();
         })
