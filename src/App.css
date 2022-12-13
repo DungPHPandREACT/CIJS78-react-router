@@ -29,3 +29,7 @@
   border-radius: 100%;
   color: #fff;
 }
+
+a.disabled {
+  display: none;
+}

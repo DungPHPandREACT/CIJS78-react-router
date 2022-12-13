@@ -39,7 +39,19 @@ const Home = (props) => {
   }, []);
 
   const handleSelectPagination = (page) => {
-    setPagination(page);
+    if (page === 'prev') {
+      if (pagination > 1) {
+        console.log(pagination - 1);
+        setPagination(pagination - 1);
+      }
+    } else if (page === 'next') {
+      if (pagination < Math.ceil(totalData / 10)) {
+        console.log(pagination + 1);
+        setPagination(pagination + 1);
+      }
+    } else {
+      setPagination(page);
+    }
   };
 
   return (
@@ -80,7 +92,13 @@ const Home = (props) => {
               </a> */}
               <div class="pagination p1">
                 <ul>
-                  <a href="#id">
+                  <a
+                    className={`${pagination === 1 ? 'disabled' : ''}`}
+                    href="#id"
+                    onClick={() => {
+                      handleSelectPagination('prev');
+                    }}
+                  >
                     <li>{'<'}</li>
                   </a>
                   {Array(Math.ceil(totalData / 10))
@@ -98,7 +116,15 @@ const Home = (props) => {
                         <li>{index + 1}</li>
                       </a>
                     ))}
-                  <a href="#content-page">
+                  <a
+                    onClick={() => {
+                      handleSelectPagination('next');
+                    }}
+                    className={`${
+                      pagination === Math.ceil(totalData / 10) ? 'disabled' : ''
+                    }`}
+                    href="#content-page"
+                  >
                     <li>{'>'}</li>
                   </a>
                 </ul>
