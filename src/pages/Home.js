@@ -5,6 +5,7 @@ import Header from '../layout/Header';
 const Home = (props) => {
   const [listData, setListData] = useState([]);
   const [pagination, setPagination] = useState(1);
+  const [totalData, setTotalData] = useState(10);
 
   useEffect(() => {
     const handleFetchListBlogs = () => {
@@ -22,6 +23,20 @@ const Home = (props) => {
 
     handleFetchListBlogs();
   }, [pagination]);
+
+  useEffect(() => {
+    const handleFetchListBlogs = () => {
+      fetch(`https://639493274df9248eada6578d.mockapi.io/api/v1/list-blogs`)
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          setTotalData(data.length);
+        });
+    };
+
+    handleFetchListBlogs();
+  }, []);
 
   const handleSelectPagination = (page) => {
     setPagination(page);
@@ -68,55 +83,21 @@ const Home = (props) => {
                   <a href="#id">
                     <li>{'<'}</li>
                   </a>
-                  <a
-                    class="is-active"
-                    href="#content-page"
-                    onClick={() => {
-                      handleSelectPagination(1);
-                    }}
-                  >
-                    <li>1</li>
-                  </a>
-                  <a
-                    href="#content-page"
-                    onClick={() => {
-                      handleSelectPagination(2);
-                    }}
-                  >
-                    <li>2</li>
-                  </a>
-                  <a
-                    href="#content-page"
-                    onClick={() => {
-                      handleSelectPagination(3);
-                    }}
-                  >
-                    <li>3</li>
-                  </a>
-                  <a
-                    href="#content-page"
-                    onClick={() => {
-                      handleSelectPagination(4);
-                    }}
-                  >
-                    <li>4</li>
-                  </a>
-                  <a
-                    href="#content-page"
-                    onClick={() => {
-                      handleSelectPagination(5);
-                    }}
-                  >
-                    <li>5</li>
-                  </a>
-                  <a
-                    href="#content-page"
-                    onClick={() => {
-                      handleSelectPagination(6);
-                    }}
-                  >
-                    <li>6</li>
-                  </a>
+                  {Array(Math.ceil(totalData / 10))
+                    .fill()
+                    .map((element, index) => (
+                      <a
+                        href="#content-page"
+                        className={`${
+                          pagination === index + 1 ? 'is-active' : ''
+                        }`}
+                        onClick={() => {
+                          handleSelectPagination(index + 1);
+                        }}
+                      >
+                        <li>{index + 1}</li>
+                      </a>
+                    ))}
                   <a href="#content-page">
                     <li>{'>'}</li>
                   </a>
