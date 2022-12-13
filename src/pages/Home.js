@@ -21,12 +21,16 @@ const Home = (props) => {
     };
 
     handleFetchListBlogs();
-  }, []);
+  }, [pagination]);
+
+  const handleSelectPagination = (page) => {
+    setPagination(page);
+  };
 
   return (
     <>
       <Header banner={props.banner}></Header>
-      <div className="container px-4 px-lg-5">
+      <div id="content-page" className="container px-4 px-lg-5">
         <div className="row gx-4 gx-lg-5 justify-content-center">
           <div className="col-md-10 col-lg-8 col-xl-7">
             {listData.length > 0 ? (
@@ -56,9 +60,68 @@ const Home = (props) => {
 
             {/* Pager*/}
             <div className="d-flex justify-content-end mb-4">
-              <a className="btn btn-primary text-uppercase" href="#!">
+              {/* <a className="btn btn-primary text-uppercase" href="#!">
                 Older Posts →
-              </a>
+              </a> */}
+              <div class="pagination p1">
+                <ul>
+                  <a href="#id">
+                    <li>{'<'}</li>
+                  </a>
+                  <a
+                    class="is-active"
+                    href="#content-page"
+                    onClick={() => {
+                      handleSelectPagination(1);
+                    }}
+                  >
+                    <li>1</li>
+                  </a>
+                  <a
+                    href="#content-page"
+                    onClick={() => {
+                      handleSelectPagination(2);
+                    }}
+                  >
+                    <li>2</li>
+                  </a>
+                  <a
+                    href="#content-page"
+                    onClick={() => {
+                      handleSelectPagination(3);
+                    }}
+                  >
+                    <li>3</li>
+                  </a>
+                  <a
+                    href="#content-page"
+                    onClick={() => {
+                      handleSelectPagination(4);
+                    }}
+                  >
+                    <li>4</li>
+                  </a>
+                  <a
+                    href="#content-page"
+                    onClick={() => {
+                      handleSelectPagination(5);
+                    }}
+                  >
+                    <li>5</li>
+                  </a>
+                  <a
+                    href="#content-page"
+                    onClick={() => {
+                      handleSelectPagination(6);
+                    }}
+                  >
+                    <li>6</li>
+                  </a>
+                  <a href="#content-page">
+                    <li>{'>'}</li>
+                  </a>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
