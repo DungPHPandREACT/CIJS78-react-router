@@ -6,6 +6,7 @@ const Home = (props) => {
   const [listData, setListData] = useState([]);
   const [pagination, setPagination] = useState(1);
   const [totalData, setTotalData] = useState(10);
+  const [data, setData] = useState([]);
 
   useEffect(() => {
     const handleFetchListBlogs = () => {
@@ -30,8 +31,9 @@ const Home = (props) => {
         .then((response) => {
           return response.json();
         })
-        .then((data) => {
-          setTotalData(data.length);
+        .then((dataTotal) => {
+          setTotalData(dataTotal.length);
+          setData(dataTotal);
         });
     };
 
@@ -54,10 +56,31 @@ const Home = (props) => {
     }
   };
 
+  const handleSearchData = (event) => {
+    const value = event.target.value;
+    let dataSearch = [];
+    if (value !== '') {
+      dataSearch = data.filter((blog, index) => {
+        return blog.title.includes(value) || blog.description.includes(value);
+      });
+    } else {
+      for (let i = 0; i <= 9; i++) {
+        dataSearch.push(data[i]);
+      }
+    }
+
+    setListData(dataSearch);
+  };
+
   return (
     <>
       <Header banner={props.banner}></Header>
       <div id="content-page" className="container px-4 px-lg-5">
+        <input
+          type="text"
+          placeholder="Enter your keywords..."
+          onChange={handleSearchData}
+        />
         <div className="row gx-4 gx-lg-5 justify-content-center">
           <div className="col-md-10 col-lg-8 col-xl-7">
             {listData.length > 0 ? (
